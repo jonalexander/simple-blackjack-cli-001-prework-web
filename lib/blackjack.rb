@@ -4,6 +4,7 @@ end
 
 def deal_card
     card = rand(1..11)
+    #generates a random number
     return card
 end
 
@@ -68,14 +69,19 @@ card_total = initial_round
   
   elsif card_total < 21
   card_total = hit?(card_total)
+  #this piece right here was a little tricky for me
+  #if total is < 21, i run hit? (allowing user to ask for another card)
+  #if they choose yes, card_total's value is updated
+  #if they shoot no, card_total's value remains the same
   display_card_total(card_total)
-     if card_total > 21
-      end_game(card_total)
-    end
+  #displays the total (regardless of user's choice above)
+  if card_total > 21
+  end_game(card_total)
+    #if the user hits and the card_total surpasses 21, we'll quit the game
+  end
   
   else card_total > 21
   end_game(card_total)
-
   end
 
 end
