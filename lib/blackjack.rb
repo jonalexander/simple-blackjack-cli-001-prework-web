@@ -3,9 +3,7 @@ def welcome
 end
 
 def deal_card
-    card = rand(1..11)
-    #generates a random number
-    return card
+  rand(1..11)
 end
 
 def display_card_total(card_total)
@@ -25,64 +23,47 @@ def end_game(card_total)
 end
 
 def initial_round
-  #totals the card value of both cards
   card_total = deal_card + deal_card
   display_card_total(card_total)
-  #returns value
-  return card_total
+  card_total
 end
-
 
 def hit?(card_total)  
   prompt_user
   input = get_user_input 
-    if input == "s"
+
+  case input
+  when "s"
     card_total
-    elsif input == "h"
+  when "h"
     card_total = card_total + deal_card
-    else
+  when !("s" || "h")
     invalid_command
   end
-  return card_total
+
+  card_total
 end
 
 def invalid_command
   puts "Please enter a valid command"
 end
 
-
-
-
-
-#####################################################
-# get every test to pass before coding runner below #
-#####################################################
-
 def runner
-
-welcome
-
-card_total = initial_round
+  welcome
+  card_total = initial_round
 
   if card_total == 21
-  puts "Blackjack!"
-  
+    puts "Blackjack!"
   elsif card_total < 21
-  card_total = hit?(card_total)
-  #this piece right here was a little tricky for me
-  #if total is < 21, i run hit? (allowing user to ask for another card)
-  #if they choose yes, card_total's value is updated
-  #if they shoot no, card_total's value remains the same
-  display_card_total(card_total)
-  #displays the total (regardless of user's choice above)
-  if card_total > 21
-  end_game(card_total)
-    #if the user hits and the card_total surpasses 21, we'll quit the game
-  end
-  
+    card_total = hit?(card_total)
+    display_card_total(card_total)
+
+    if card_total == 21
+      puts "Blackjack!"  
+    elsif card_total > 21
+      end_game(card_total)
+    end
   else card_total > 21
-  end_game(card_total)
+    end_game(card_total)
   end
-
 end
-
